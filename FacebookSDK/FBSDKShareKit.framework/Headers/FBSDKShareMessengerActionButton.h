@@ -17,31 +17,18 @@
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
-#import <UIKit/UIImage.h>
 
-@class FBSDKGraphRequestDataAttachment;
-@class FBSDKLogger;
+#import <FBSDKCoreKit/FBSDKCopying.h>
 
-@interface FBSDKGraphRequestBody : NSObject
+/**
+ A base interface for Messenger share action buttons.
+ */
+@protocol FBSDKShareMessengerActionButton <FBSDKCopying, NSSecureCoding>
 
-@property (nonatomic, retain, readonly) NSData *data;
-
-- (void)appendWithKey:(NSString *)key
-            formValue:(NSString *)value
-               logger:(FBSDKLogger *)logger;
-
-- (void)appendWithKey:(NSString *)key
-           imageValue:(UIImage *)image
-               logger:(FBSDKLogger *)logger;
-
-- (void)appendWithKey:(NSString *)key
-            dataValue:(NSData *)data
-               logger:(FBSDKLogger *)logger;
-
-- (void)appendWithKey:(NSString *)key
-  dataAttachmentValue:(FBSDKGraphRequestDataAttachment *)dataAttachment
-               logger:(FBSDKLogger *)logger;
-
-+ (NSString *)mimeContentType;
+/**
+ The title displayed to the user for the button.
+ @return The title for the button.
+ */
+@property (nonatomic, copy) NSString *title;
 
 @end

@@ -18,27 +18,36 @@
 
 #import <Foundation/Foundation.h>
 
-#import <FBSDKCoreKit/FBSDKMacros.h>
+#import <FBSDKShareKit/FBSDKCameraEffectArguments.h>
+#import <FBSDKShareKit/FBSDKCameraEffectTextures.h>
+#import <FBSDKShareKit/FBSDKSharingContent.h>
+#import <FBSDKShareKit/FBSDKSharingScheme.h>
 
-#import "FBSDKBridgeAPIProtocolType.h"
+/**
+ A model for content to share with a Facebook camera effect.
+ */
+@interface FBSDKShareCameraEffectContent : NSObject <FBSDKSharingContent, FBSDKSharingScheme>
 
-@class FBSDKBridgeAPIRequest;
+/**
+ ID of the camera effect to use.
+ */
+@property (nonatomic, copy) NSString *effectID;
 
-FBSDK_EXTERN NSString *const FBSDKBridgeAPIAppIDKey;
-FBSDK_EXTERN NSString *const FBSDKBridgeAPISchemeSuffixKey;
-FBSDK_EXTERN NSString *const FBSDKBridgeAPIVersionKey;
+/**
+ Arguments for the effect.
+ */
+@property (nonatomic, copy) FBSDKCameraEffectArguments *effectArguments;
 
-@protocol FBSDKBridgeAPIProtocol <NSObject>
+/**
+ Textures for the effect.
+ */
+@property (nonatomic, copy) FBSDKCameraEffectTextures *effectTextures;
 
-- (NSURL *)requestURLWithActionID:(NSString *)actionID
-                           scheme:(NSString *)scheme
-                       methodName:(NSString *)methodName
-                    methodVersion:(NSString *)methodVersion
-                       parameters:(NSDictionary *)parameters
-                            error:(NSError *__autoreleasing *)errorRef;
-- (NSDictionary *)responseParametersForActionID:(NSString *)actionID
-                                queryParameters:(NSDictionary *)queryParameters
-                                      cancelled:(BOOL *)cancelledRef
-                                          error:(NSError *__autoreleasing *)errorRef;
+/**
+ Compares the receiver to another camera effect content.
+ @param content The other content
+ @return YES if the receiver's values are equal to the other content's values; otherwise NO
+ */
+- (BOOL)isEqualToShareCameraEffectContent:(FBSDKShareCameraEffectContent *)content;
 
 @end

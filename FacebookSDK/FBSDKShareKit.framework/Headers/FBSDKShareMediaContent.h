@@ -18,34 +18,24 @@
 
 #import <Foundation/Foundation.h>
 
-@class FBSDKURLConnection;
+#import <FBSDKShareKit/FBSDKSharingContent.h>
 
-typedef void (^FBSDKURLConnectionHandler)(FBSDKURLConnection *connection,
-                                          NSError *error,
-                                          NSURLResponse *response,
-                                          NSData *responseData);
+/**
+  A model for media content (photo or video) to be shared.
+ */
+@interface FBSDKShareMediaContent : NSObject <FBSDKSharingContent>
 
-@protocol FBSDKURLConnectionDelegate <NSObject>
+/**
+  Media to be shared.
+ @return Array of the media (FBSDKSharePhoto or FBSDKShareVideo)
+ */
+@property (nonatomic, copy) NSArray *media;
 
-@optional
-
-- (void)facebookURLConnection:(FBSDKURLConnection *)connection
-              didSendBodyData:(NSInteger)bytesWritten
-            totalBytesWritten:(NSInteger)totalBytesWritten
-    totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite;
-
-@end
-
-@interface FBSDKURLConnection : NSObject
-
-- (FBSDKURLConnection *)initWithRequest:(NSURLRequest *)request
-                      completionHandler:(FBSDKURLConnectionHandler)handler
-NS_DESIGNATED_INITIALIZER;
-
-@property (nonatomic, assign) id<FBSDKURLConnectionDelegate> delegate;
-
-- (void)cancel;
-- (void)start;
-- (void)setDelegateQueue:(NSOperationQueue *)queue;
+/**
+  Compares the receiver to another media content.
+ @param content The other content
+ @return YES if the receiver's values are equal to the other content's values; otherwise NO
+ */
+- (BOOL)isEqualToShareMediaContent:(FBSDKShareMediaContent *)content;
 
 @end

@@ -16,16 +16,18 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#import <Foundation/Foundation.h>
+#import "FBSDKShareDialogMode.h"
 
-#import "FBSDKBridgeAPIRequest.h"
+/**
+ A base interface for indicating a custom URL scheme
+ */
+@protocol FBSDKSharingScheme
 
-@interface FBSDKBridgeAPICrypto : NSObject
-
-+ (void)addCipherKeyToQueryParameters:(NSMutableDictionary *)queryParameters;
-+ (NSDictionary *)decryptResponseForRequest:(FBSDKBridgeAPIRequest *)request
-                            queryParameters:(NSDictionary *)queryParameters
-                                      error:(NSError *__autoreleasing *)errorRef;
-+ (void)reset;
+/**
+ Asks the receiver to provide a custom scheme.
+ - Parameter mode: The intended dialog mode for sharing the content.
+ - Returns: A custom URL scheme to use for the specified mode, or nil.
+ */
+- (nullable NSString *)schemeForMode:(FBSDKShareDialogMode)mode;
 
 @end
